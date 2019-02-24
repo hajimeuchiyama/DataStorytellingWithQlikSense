@@ -1,0 +1,5 @@
+Set vProductCap = 10;
+
+Set vMarginTarget = 20;
+
+Set vMeasure = Avg(Sales);
