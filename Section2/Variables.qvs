@@ -6,6 +6,6 @@ Set vMeasure = Avg(Sales);
 
 Set eQuarterlySales = If($0=0,Sum({$ <q_start = {"$(=Floor(QuarterStart(Max([Date]))))"}>}Sales),
 Sum({$ <q_start = {"$(=Floor(QuarterStart(Max([Date]),$1)))"}>}Sales)
-)
+);
 
 Set eQuarterlySalesGrowth = ( ( $(eQuarterSales(0)) - $(eQuarterSales(-1)) ) / $(eQuarterSales(-1)) );
