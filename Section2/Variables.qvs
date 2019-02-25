@@ -4,8 +4,12 @@ Set vMarginTarget = 20;
 
 Set vMeasure = Avg(Sales);
 
-Set eQuarterlySales = If($0=0,Sum({$ <q_start = {"$(=Floor(QuarterStart(Max([Date]))))"}>}Sales),
-Sum({$ <q_start = {"$(=Floor(QuarterStart(Max([Date]),$1)))"}>}Sales)
-);
+Set eQuarterlySalesStr = Sum({$ <q_start = {"@(=Floor(QuarterStart(Max([Date]),0)))"}>}Sales);
 
-Set eQuarterlySalesGrowth = ( ( $(eQuarterSales(0)) - $(eQuarterSales(-1)) ) / $(eQuarterSales(-1)) );
+Set eQuarterlySales = "=Replace([eQuarterlySalesStr],'@','$')";
+//Set eQuarterlySales = "=Replace([Sum({$ <q_start = {"@(=Floor(QuarterStart(Max([Date]),0)))"}>}Sales)],'@','$')";
+
+
+Let eQSales = 'Sum({$ <q_start = {"$'&'(=Floor(QuarterStart(Max([Date]),$1)))"}>}Sales)';
+
+Let eQuarterlySalesGrowth = '( ( $'&'(eQSales(0)) - $'&'(eQSales(-1)) ) / $'&'(eQSales(-1)) )';
