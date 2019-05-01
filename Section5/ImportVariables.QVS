@@ -7,7 +7,7 @@ Description: Import variables as specified in DPD.  Note if you intend to load
     variable from a QVS that defines the variables, you must include the QVS 
     BEFORE running this sub.
 Author: Michael Smith
-Last Updated: 4/30/2019 (Hajme Uchiyama)
+Last Updated: 4/30/2019 (adding statements to unload variables, Hajme Uchiyama)
 ===========================================================================*/
 Variables:
 // Get variable loading information from DPD ("App Variables" worksheet)
@@ -27,9 +27,9 @@ For vI = 0 to NoOfRows('Variables') - 1
     
     If WildMatch(upper(vIsLoaded),'Y*') Then // load variable = Yes
     	Let vSource = Peek('Definition Source',vI,'Variables');
-    	If $(vSource) ='DPD' Then
+    	If vSource ='DPD' Then
    			Let $(vName) = Peek('Definition',vI,'Variables'); // Load from DPD
-		ElseIf $(vSource) = 'QVS' Then
+		ElseIf vSource = 'QVS' Then
        		Call $(vName); // Load from QVS
         Else
         	Set $(vName)=;  // Unload variable for invalid definition source
